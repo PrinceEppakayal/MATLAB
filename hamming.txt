@@ -1,0 +1,55 @@
+% LOW PASS FILTER
+
+clc;
+close all;
+clear all;
+
+wc = 0.5*pi;
+n = 25;
+
+b = fir1(n, wc/pi, 'low', chebwin(n+1));
+w = 0:0.01:pi;
+H = freqz(b,1,w);
+plot(w/pi, abs(H), 'm: ')
+hold on;
+
+b = fir1(n, wc/pi, 'low', boxcar(n+1));
+w = 0:0.01:pi;
+H = freqz(b,1,w);
+plot(w/pi, abs(H), 'g+')
+hold on;
+
+title("Low Pass Filter")
+xlabel('Normalized Freq');
+ylabel('|H(w)|');
+legend('Hamming Window', 'Boxcar Window');
+grid on;
+
+
+
+% HIGH PASS FILTER
+
+clc;
+close all;
+clear all;
+
+wc = 0.5*pi;
+n = 50;
+
+b1 = fir1(n, wc/pi, 'high', chebwin(n+1));
+w = 0:0.01:pi;
+H1 = freqz(b1,1,w);
+plot(w/pi, abs(H1), 'r--')
+hold on;
+
+b2 = fir1(n, wc/pi, 'high', boxcar(n+1));
+w = 0:0.01:pi;
+H2 = freqz(b2,1,w);
+plot(w/pi, abs(H2), 'b-')
+hold on;
+
+title("High Pass Filter")
+xlabel('Normalized Freq');
+ylabel('|H(w)|');
+legend('Hamming Window', 'Boxcar Window');
+grid on;

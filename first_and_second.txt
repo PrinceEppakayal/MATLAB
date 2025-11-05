@@ -1,0 +1,46 @@
+% First Order System
+
+a = 0.9;
+w = 0:0.1*pi:2*pi;
+realH = 1-a*cos(w);
+imagH = a*sin(w);
+magH = 1./sqrt((realH.*realH)+(imagH.*imagH));
+phaseH = -atan2(imagH,realH);
+
+figure;
+subplot(2,1,1)
+plot(w,magH);
+xlabel('Range of Sample');
+ylabel('Magnitude');
+grid on;
+
+subplot(2,1,2)
+plot(w,phaseH);
+xlabel('Range of Sample');
+ylabel('Phase');
+grid on;
+
+
+
+% Second Order System
+
+a = 0.9;
+w = 0:0.1*pi:2*pi;
+realH = 1-a*cos(2*w);
+imagH = a*sin(2*w);
+magH = 1./sqrt((realH.*realH)+(imagH.*imagH));
+phaseH = -atan2(imagH,realH);
+
+figure;
+subplot(2,2,1)
+plot(w,magH);
+xlabel('Range of Sample');
+ylabel('Magnitude');
+grid on;
+
+subplot(2,2,2)
+plot(w,phaseH);
+xlabel('Range of Sample');
+ylabel('Phase');
+grid on;
+

@@ -1,0 +1,52 @@
+clear all;
+clc;
+close all;
+
+x = [2,4,6,8,10];
+N = length(x);
+
+% DFT 
+X = zeros(N,1);
+for k = 0:N-1
+    for n = 0:N-1
+        X(k+1) = X(k+1) + x(n+1) * exp(-1i*2*pi*k*n/N);
+    end
+end
+
+% IDFT 
+Y = zeros(N,1);
+for n = 0:N-1
+    for k = 0:N-1
+        Y(n+1) = Y(n+1) + X(k+1) * exp(1i*2*pi*k*n/N);
+    end
+    Y(n+1) = Y(n+1)/N;
+end
+
+disp(X);
+disp(Y);
+
+figure;
+subplot(2,1,1);
+stem(0:N-1, abs(X));
+title('Magnitude Spectrum');
+xlabel('Frequency (Hz)');
+ylabel('Magnitude');
+subplot(2,1,2);
+stem(0:N-1, angle(X));
+title('Phase Spectrum');
+xlabel('Frequency (Hz)');
+ylabel('Phase');
+hold on;
+
+subplot(2,2,1);
+
+
+stem(0:N-1, abs(Y));
+title("Magnitude Spectrum");
+xlabel("Frequency");
+ylabel("Magnitude");
+subplot(2,2,2);
+stem(0:N-1, angle(Y));
+title("Phase Spectrum");
+xlabel("Frequency");
+ylabel("Phase");

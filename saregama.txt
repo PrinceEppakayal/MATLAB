@@ -1,0 +1,70 @@
+clc;
+clear all;
+close all;
+
+Fs = 8000;
+t = 0:1/Fs:0.5;
+
+f_sa = 240;
+f_re = 270; 
+f_ga = 300;
+f_ma = 320;
+f_pa = 360;
+f_dha = 400;
+f_ni = 450;
+f_sha = 480;
+
+sa = 5*sin(2*pi*f_sa*t);
+re = 5*sin(2*pi*f_re*t);
+ga = 5*sin(2*pi*f_ga*t);
+ma = 5*sin(2*pi*f_ma*t);
+pa = 5*sin(2*pi*f_pa*t);
+dha = 5*sin(2*pi*f_dha*t);
+ni = 5*sin(2*pi*f_ni*t);
+sha = 5*sin(2*pi*f_sha*t);
+
+tone = [sa re ga ma pa dha ni sha];
+
+sound(tone, Fs);
+
+figure;
+subplot(4,2,1);
+plot(t, sa);
+title('Sa');
+xlabel('Time');
+ylabel('Amplitude');
+subplot(4,2,2);
+plot(t, re);
+title('Re');
+xlabel('Time');
+ylabel('Amplitude');
+subplot(4,2,3);
+plot(t, ga);
+title('Ga');
+xlabel('Time');
+ylabel('Amplitude');
+subplot(4,2,4);
+plot(t, ma);
+title('Ma');
+xlabel('Time');
+ylabel('Amplitude');
+subplot(4,2,5);
+plot(t, pa);
+title('Pa');
+xlabel('Time');
+ylabel('Amplitude');
+subplot(4,2,6);
+plot(t, dha);
+title('Dha');
+xlabel('Time');
+ylabel('Amplitude');
+subplot(4,2,7);
+plot(t, ni);
+title('Ni');
+xlabel('Time');
+ylabel('Amplitude');
+subplot(4,2,8);
+plot(t, sha);
+title('Sha');
+xlabel('Time');
+ylabel('Amplitude');

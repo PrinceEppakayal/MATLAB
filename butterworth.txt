@@ -1,0 +1,16 @@
+fs = 10000; 
+fc = 3000; 
+N = 4;
+Wc = [fc/(fs/2)];
+
+[b,a] = butter(N,Wc,'low');
+
+[H,f] = freqz(b,a,512,fs);
+
+
+figure;
+plot(f,abs(H));
+title('Frequency Response of 4th Order Butterworth Low Pass Filter');
+xlabel('Frequency');
+ylabel('Magnitude');
+grid on;

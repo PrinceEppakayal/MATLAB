@@ -1,0 +1,57 @@
+clc;
+clear all;
+
+x = [1 2 2 1 1 0 0 0];
+N = 8;
+
+disp('Input sequence: ');
+disp(x);
+
+br_index = bitrevorder(1:N);
+X = x(br_index);
+
+W = exp(-1j*2*pi*(0:N-1)/N);
+
+for i = 1:2:N
+    a = X(i);
+    b = X(i+1);
+    X(i) = a + b;
+    X(i+1) = a - b;
+end
+
+for i = 1:4:N
+    a = X(i);
+    b = X(i+2);
+    X(i) = a + b;
+    X(i+2) = a - b;
+
+    a = X(i+1);
+    b = X(i+3) * W(1+2);
+    X(i+1) = a + b;
+    X(i+3) = a - b;    
+end
+
+for i = 1:8:N
+    a = X(i);
+    b = X(i+4);
+    X(i) = a + b;
+    X(i+4) = a - b;
+
+    a = X(i+1);
+    b = X(i+5) * W(1+1);
+    X(i+1) = a + b;
+    X(i+5) = a - b;  
+
+    a = X(i+2);
+    b = X(i+6) * W(1+2);
+    X(i+2) = a + b;
+    X(i+6) = a - b;
+
+    a = X(i+3);
+    b = X(i+7) * W(1+3);
+    X(i+3) = a + b;
+    X(i+7) = a - b;    
+end
+
+disp('8-point DIT-FFT output X:');
+disp(X.');

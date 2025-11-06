@@ -1,0 +1,83 @@
+clear all;
+clc;
+
+%% --- Inputs ---
+% Let's use two signals of different lengths
+x = [1, 2, 2, 1];
+h = [1, -1];
+
+disp('Original x:');
+disp(x);
+disp('Original h:');
+disp(h);
+
+%% --- 1. Pad Signals to Same Length (N) ---
+% Circular convolution is defined for signals of the same length.
+% We pad the shorter signal with zeros to match the longer one.
+Lx = length(x);
+Lh = length(h);
+N = max(Lx, Lh);
+
+% Pad x if it's shorter
+if Lx < N
+    x = [x, zeros(1, N - Lx)];
+end
+
+% Pad h if it's shorter
+if Lh < N
+    h = [h, zeros(1, N - Lh)];
+end
+
+disp('---');
+disp(['Signals padded to length N = ', num2str(N)]);
+disp('Padded x:');
+disp(x);
+disp('Padded h:');
+disp(h);
+
+
+%% --- 2. Circular Convolution using Formula ---
+% Initialize the output vector
+y = zeros(1, N);
+
+% Outer loop for each output sample 'n' (from 0 to N-1)
+for n = 0:N-1
+    
+    sum = 0; % Initialize the sum for this 'n'
+    
+    % Inner loop for the summation index 'm' (from 0 to N-1)
+    for m = 0:N-1
+        
+        % Calculate the index for h: (n - m) mod N
+        % This is the "circular" part.
+        % We use mod() to wrap negative indices around.
+        h_index_0 = mod(n - m, N); % This gives an index from 0 to N-1
+        
+        % ---
+        % Convert 0-based indices (n, m) to 1-based MATLAB indices
+        % ---
+        
+        % Get x[m] -> x(m+1)
+        x_val = x(m + 1);
+        
+        % Get h[(n-m) mod N] -> h(h_index_0 + 1)
+        h_val = h(h_index_0 + 1);
+        
+        % Perform the multiplication and add to the sum
+        sum = sum + x_val * h_val;
+    end
+    
+    % Store the final sum for this 'n'
+    % y[n] -> y(n+1)
+    y(n + 1) = sum;
+end
+
+%% --- 3. Results ---
+disp('---');
+disp('Circular Convolution Result (y):');
+disp(y);
+
+% For verification, compare with MATLAB's built-in cconv
+y_check = cconv(x, h, N);
+disp('Verification using cconv(x, h, N):');
+disp(y_check);
